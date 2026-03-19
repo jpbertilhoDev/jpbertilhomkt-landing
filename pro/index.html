@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>JP Bertilho — Presença Digital que Converte</title>
+<meta name="description" content="Sites, landing pages e posicionamento digital que transformam visitantes em clientes. Entrega em 7 dias. Orçamento grátis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =======================================================
+   RESET & TOKENS
+   ======================================================= */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --orange: #E8632B;
+  --orange-dark: #B34415;
+  --orange-deep: #8C3310;
+  --orange-glow: rgba(232, 99, 43, 0.15);
+  --bg: #0A0A0A;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-orange: rgba(232, 99, 43, 0.3);
+  --white: #FFFAF6;
+  --white-60: rgba(255, 250, 246, 0.6);
+  --white-40: rgba(255, 250, 246, 0.4);
+  --white-20: rgba(255, 250, 246, 0.2);
+  --white-08: rgba(255, 250, 246, 0.08);
+  --font-bebas: 'Bebas Neue', sans-serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-syne: 'Syne', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* =======================================================
+   FILM GRAIN OVERLAY
+   ======================================================= */
+.grain {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: grainAnim 0.5s steps(1) infinite;
+}
+
+@keyframes grainAnim {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, -35%); }
+  90% { transform: translate(-10%, 10%); }
+  100% { transform: translate(5%, 0); }
+}
+
+/* =======================================================
+   SCROLL REVEAL ANIMATIONS
+   ======================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* =======================================================
+   LAYOUT UTILITIES
+   ======================================================= */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  position: relative;
+}
+
+/* =======================================================
+   BRAND MARK (FIXED NAV)
+   ======================================================= */
+.brand-mark {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.brand-mark:hover {
+  transform: scale(1.05);
+}
+
+.brand-mark span {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--white);
+  letter-spacing: -0.5px;
+}
+
+/* Fixed CTA on mobile */
+.fixed-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9997;
+  padding: 12px 20px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  background: linear-gradient(to top, var(--bg) 60%, transparent);
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.fixed-cta.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fixed-cta a {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  padding: 16px 24px;
+  background: var(--orange);
+  color: var(--white);
+  font-family: var(--font-outfit);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.fixed-cta a:hover {
+  background: var(--orange-dark);
+}
+
+.fixed-cta a:active {
+  transform: scale(0.98);
+}
+
+/* =======================================================
+   SECTION 1 — HERO
+   ======================================================= */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 80px 24px 120px;
+}
+
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(232, 99, 43, 0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-family: var(--font-outfit);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.hero-title {
+  font-family: var(--font-bebas);
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: 3px;
+  color: var(--white);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.hero-title .accent {
+  color: var(--orange);
+}
+
+.hero-sub {
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  line-height: 1.65;
+  color: var(--white-60);
+  max-width: 600px;
+  margin: 0 auto 48px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =======================================================
+   BUTTONS
+   ======================================================= */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 40px;
+  background: var(--orange);
+  color: var(--white);
+  font-family: var(--font-outfit);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: var(--orange-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(232, 99, 43, 0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--white-40);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  color: var(--white);
+}
+
+/* =======================================================
+   SECTION HEADINGS
+   ======================================================= */
+.section-label {
+  font-family: var(--font-outfit);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+
+.section-title-bebas {
+  font-family: var(--font-bebas);
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
+}
+
+.section-title-syne {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--white);
+  line-height: 1.15;
+}
+
+.section-sub {
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--white-60);
+  max-width: 600px;
+}
+
+/* =======================================================
+   SECTION 2 — PROBLEM (Pain Points)
+   ======================================================= */
+.problem {
+  padding: 120px 0 100px;
+}
+
+.problem-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.pain-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.pain-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--orange);
+  border-radius: 8px;
+  padding: 28px 28px 28px 32px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.pain-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-orange);
+  border-left-color: var(--orange);
+}
+
+.pain-card h3 {
+  font-family: var(--font-outfit);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.pain-card p {
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--white-60);
+}
+
+/* =======================================================
+   SECTION 3 — SOLUTION (Services)
+   ======================================================= */
+.solution {
+  padding: 100px 0 120px;
+  background: linear-gradient(180deg, transparent 0%, rgba(232, 99, 43, 0.02) 50%, transparent 100%);
+}
+
+.solution-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.solution-header .section-sub {
+  margin: 16px auto 0;
+}
+
+.service-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange), var(--orange-dark));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.service-card:hover {
+  border-color: var(--border-orange);
+  transform: translateY(-4px);
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+.service-card-tag {
+  display: inline-block;
+  font-family: var(--font-outfit);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: rgba(232, 99, 43, 0.1);
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.service-card h3 {
+  font-family: var(--font-syne);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.service-card > p {
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--white-60);
+  margin-bottom: 20px;
+}
+
+.service-includes {
+  list-style: none;
+  margin-bottom: 24px;
+}
+
+.service-includes li {
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: var(--white-60);
+  padding: 6px 0;
+  padding-left: 24px;
+  position: relative;
+}
+
+.service-includes li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: var(--orange);
+  border-radius: 50%;
+}
+
+.service-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.service-meta-time {
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--white-40);
+}
+
+.service-meta-price {
+  font-family: var(--font-syne);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--orange);
+}
+
+/* =======================================================
+   SECTION 4 — PROOF
+   ======================================================= */
+.proof {
+  padding: 100px 0 80px;
+}
+
+.proof-content {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 64px;
+}
+
+.proof-content .section-sub {
+  margin: 20px auto 0;
+  max-width: 580px;
+}
+
+.proof-quote {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  line-height: 1.6;
+  color: var(--white-60);
+  max-width: 580px;
+  margin: 24px auto 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.stat {
+  text-align: center;
+  padding: 32px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.stat-number {
+  font-family: var(--font-bebas);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  color: var(--orange);
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: var(--white-40);
+  line-height: 1.4;
+}
+
+.proof-link {
+  text-align: center;
+  margin-top: 48px;
+}
+
+.proof-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--white-40);
+  transition: color 0.3s ease;
+}
+
+.proof-link a:hover {
+  color: var(--orange);
+}
+
+/* =======================================================
+   SECTION 5 — PROCESS
+   ======================================================= */
+.process {
+  padding: 100px 0 120px;
+  background: linear-gradient(180deg, transparent 0%, rgba(232, 99, 43, 0.02) 50%, transparent 100%);
+}
+
+.process-header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+
+.timeline {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20px;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--orange), var(--border));
+}
+
+.timeline-step {
+  position: relative;
+  padding-left: 60px;
+  padding-bottom: 48px;
+}
+
+.timeline-step:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 12px;
+  top: 4px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--orange);
+}
+
+.timeline-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 7px;
+  height: 7px;
+  background: var(--orange);
+  border-radius: 50%;
+}
+
+.timeline-number {
+  font-family: var(--font-bebas);
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+
+.timeline-title {
+  font-family: var(--font-syne);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.timeline-desc {
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--white-60);
+}
+
+/* =======================================================
+   SECTION 6 — PRICING
+   ======================================================= */
+.pricing {
+  padding: 100px 0 120px;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.pricing-card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border-orange);
+  border-radius: 16px;
+  padding: 48px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--orange), var(--orange-dark));
+}
+
+.pricing-card-badge {
+  display: inline-block;
+  font-family: var(--font-outfit);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--orange);
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-bottom: 24px;
+}
+
+.pricing-card-title {
+  font-family: var(--font-syne);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.pricing-card-old {
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: var(--white-40);
+  text-decoration: line-through;
+  margin-bottom: 4px;
+}
+
+.pricing-card-price {
+  font-family: var(--font-bebas);
+  font-size: clamp(3.5rem, 10vw, 5rem);
+  color: var(--orange);
+  letter-spacing: 3px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.pricing-card-installment {
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--white-60);
+  margin-bottom: 32px;
+}
+
+.pricing-features {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.pricing-features li {
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--white-60);
+  padding: 10px 0;
+  padding-left: 32px;
+  position: relative;
+  border-bottom: 1px solid var(--white-08);
+}
+
+.pricing-features li:last-child {
+  border-bottom: none;
+}
+
+.pricing-features li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(232, 99, 43, 0.15);
+}
+
+.pricing-features li::after {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 5px;
+  height: 9px;
+  border-bottom: 2px solid var(--orange);
+  border-right: 2px solid var(--orange);
+}
+
+.pricing-scarcity {
+  background: rgba(232, 99, 43, 0.08);
+  border: 1px solid rgba(232, 99, 43, 0.2);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 32px;
+}
+
+.pricing-scarcity-title {
+  font-family: var(--font-outfit);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--orange);
+  margin-bottom: 4px;
+}
+
+.pricing-scarcity-text {
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: var(--white-60);
+}
+
+.pricing-scarcity-counter {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.pricing-scarcity-counter .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--orange);
+}
+
+.pricing-scarcity-counter .dot.filled {
+  background: var(--orange);
+}
+
+.pricing-scarcity-counter .dot.empty {
+  background: transparent;
+}
+
+/* =======================================================
+   SECTION 7 — FAQ
+   ======================================================= */
+.faq {
+  padding: 100px 0 120px;
+  background: linear-gradient(180deg, transparent 0%, rgba(232, 99, 43, 0.02) 50%, transparent 100%);
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.faq-list {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-outfit);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--white);
+  transition: color 0.3s ease;
+}
+
+.faq-question:hover {
+  color: var(--orange);
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--white-40);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.faq-icon::before {
+  width: 14px;
+  height: 2px;
+  transform: translate(-50%, -50%);
+}
+
+.faq-icon::after {
+  width: 2px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+}
+
+.faq-item.open .faq-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  opacity: 0;
+}
+
+.faq-item.open .faq-question {
+  color: var(--orange);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.faq-answer-inner {
+  padding: 0 0 24px;
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--white-60);
+}
+
+/* =======================================================
+   SECTION 8 — FINAL CTA
+   ======================================================= */
+.final-cta {
+  padding: 120px 0 100px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.final-cta-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(232, 99, 43, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.final-cta .container {
+  position: relative;
+  z-index: 2;
+}
+
+.final-cta .section-title-bebas {
+  max-width: 700px;
+  margin: 0 auto 20px;
+}
+
+.final-cta .section-sub {
+  margin: 0 auto 48px;
+}
+
+.final-cta-note {
+  margin-top: 20px;
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: 0.9rem;
+  color: var(--white-40);
+}
+
+/* =======================================================
+   FOOTER
+   ======================================================= */
+.footer {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.footer-copy {
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: var(--white-40);
+  margin-bottom: 16px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--white-40);
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--orange);
+}
+
+.footer-location {
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: var(--white-20);
+}
+
+/* =======================================================
+   RESPONSIVE — TABLET (640px+)
+   ======================================================= */
+@media (min-width: 640px) {
+  .container {
+    padding: 0 40px;
+  }
+
+  .service-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .pain-card {
+    padding: 32px 36px 32px 40px;
+  }
+
+  .timeline::before {
+    left: 24px;
+  }
+
+  .timeline-step {
+    padding-left: 72px;
+  }
+
+  .timeline-dot {
+    left: 16px;
+  }
+}
+
+/* =======================================================
+   RESPONSIVE — DESKTOP (768px+)
+   ======================================================= */
+@media (min-width: 768px) {
+  .fixed-cta {
+    display: none;
+  }
+
+  .stats-row {
+    gap: 32px;
+  }
+
+  .stat {
+    padding: 40px 24px;
+  }
+}
+
+/* =======================================================
+   RESPONSIVE — LARGE DESKTOP (1024px+)
+   ======================================================= */
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 48px;
+  }
+
+  .hero {
+    padding: 100px 48px 120px;
+  }
+
+  .service-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .pain-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .timeline::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .timeline-step {
+    width: 50%;
+    padding-left: 0;
+    padding-right: 48px;
+  }
+
+  .timeline-step:nth-child(even) {
+    margin-left: 50%;
+    padding-left: 48px;
+    padding-right: 0;
+  }
+
+  .timeline-dot {
+    left: auto;
+    right: -9px;
+  }
+
+  .timeline-step:nth-child(even) .timeline-dot {
+    right: auto;
+    left: -9px;
+  }
+
+  .timeline-step {
+    text-align: right;
+  }
+
+  .timeline-step:nth-child(even) {
+    text-align: left;
+  }
+}
+
+/* =======================================================
+   ACCESSIBILITY
+   ======================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .grain {
+    display: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Focus visible for keyboard nav */
+*:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* Hide fixed CTA bottom padding spacer on desktop */
+.bottom-spacer {
+  height: 80px;
+}
+
+@media (min-width: 768px) {
+  .bottom-spacer {
+    height: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Film Grain -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Fixed Brand Mark -->
+<a href="#hero" class="brand-mark" aria-label="Voltar ao topo">
+  <span>JP</span>
+</a>
+
+<!-- Fixed Mobile CTA -->
+<div class="fixed-cta" id="fixedCta" aria-hidden="true">
+  <a href="https://wa.me/351963901570?text=Oi%20JP!%20Vi%20seu%20site%20e%20quero%20saber%20mais%20sobre%20os%20servi%C3%A7os%20de%20presen%C3%A7a%20digital." target="_blank" rel="noopener">QUERO MEU ORÇAMENTO</a>
+</div>
+
+<!-- =====================================================
+     SECTION 1 — HERO
+     ===================================================== -->
+<section class="hero" id="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Marketing Digital para Profissionais</span>
+    <h1 class="hero-title">SUA PRESENÇA DIGITAL<br><span class="accent">NÃO CONVERTE?</span></h1>
+    <p class="hero-sub">Sites, landing pages e posicionamento que transformam visitantes em clientes. Entrega em 7 dias.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/351963901570?text=Oi%20JP!%20Vi%20seu%20site%20e%20quero%20saber%20mais%20sobre%20os%20servi%C3%A7os%20de%20presen%C3%A7a%20digital." class="btn-primary" target="_blank" rel="noopener">QUERO MEU ORÇAMENTO GRÁTIS &rarr;</a>
+      <a href="#problema" class="btn-secondary">&darr; Veja como funciona</a>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     SECTION 2 — PROBLEM
+     ===================================================== -->
+<section class="problem" id="problema">
+  <div class="container">
+    <div class="problem-header reveal">
+      <p class="section-label">O problema</p>
+      <h2 class="section-title-syne">Isso soa familiar?</h2>
+    </div>
+    <div class="pain-cards">
+      <div class="pain-card reveal reveal-delay-1">
+        <h3>Você é bom no que faz, mas ninguém te encontra online</h3>
+        <p>Seus clientes vêm só de indicação. Quando alguém pesquisa seu serviço no Google, encontra seu concorrente.</p>
+      </div>
+      <div class="pain-card reveal reveal-delay-2">
+        <h3>Sua página é um Linktree com 8 links que ninguém clica</h3>
+        <p>Ou pior: nem página tem. Manda tudo pro Instagram e reza pra pessoa te achar nos stories.</p>
+      </div>
+      <div class="pain-card reveal reveal-delay-3">
+        <h3>Você paga tráfego pago mas manda pro Instagram</h3>
+        <p>Cada real gasto em anúncio que leva pro Instagram é dinheiro jogado fora. Sem landing page, sem conversão.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     SECTION 3 — SOLUTION
+     ===================================================== -->
+<section class="solution" id="servicos">
+  <div class="container">
+    <div class="solution-header reveal">
+      <p class="section-label">A solução</p>
+      <h2 class="section-title-bebas">EU RESOLVO ISSO.</h2>
+      <p class="section-sub">Presença digital profissional que converte visitantes em clientes.</p>
+    </div>
+    <div class="service-cards">
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-card-tag">Mais popular</span>
+        <h3>Landing Page de Conversão</h3>
+        <p>Página profissional focada em um objetivo: transformar visitante em cliente.</p>
+        <ul class="service-includes">
+          <li>Design personalizado</li>
+          <li>Copy persuasivo</li>
+          <li>Formulário / WhatsApp</li>
+          <li>100% responsivo</li>
+          <li>Otimizado para velocidade</li>
+        </ul>
+        <div class="service-meta">
+          <span class="service-meta-time">Entrega em 7 dias</span>
+          <span class="service-meta-price">a partir de R$ 997</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-card-tag">Completo</span>
+        <h3>Presença Digital Completa</h3>
+        <p>Toda a sua base digital profissional, do zero.</p>
+        <ul class="service-includes">
+          <li>Site / landing page</li>
+          <li>Identidade visual</li>
+          <li>Posicionamento nas redes</li>
+          <li>Copy profissional</li>
+          <li>Consultoria de marca</li>
+        </ul>
+        <div class="service-meta">
+          <span class="service-meta-time">Entrega em 14 dias</span>
+          <span class="service-meta-price">a partir de R$ 2.497</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <span class="service-card-tag">Recorrente</span>
+        <h3>Gestão de Posicionamento</h3>
+        <p>Clientes chegando todo mês no seu WhatsApp.</p>
+        <ul class="service-includes">
+          <li>Gestão de redes sociais</li>
+          <li>Tráfego pago (Meta &amp; Google Ads)</li>
+          <li>Relatórios mensais</li>
+          <li>Otimização contínua</li>
+          <li>Suporte prioritário</li>
+        </ul>
+        <div class="service-meta">
+          <span class="service-meta-time">Mensal</span>
+          <span class="service-meta-price">a partir de R$ 1.497/mês</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     SECTION 4 — PROOF
+     ===================================================== -->
+<section class="proof" id="prova">
+  <div class="container">
+    <div class="proof-content reveal">
+      <p class="section-label">A prova</p>
+      <h2 class="section-title-syne">A prova está aqui.</h2>
+      <p class="proof-quote">Esta página que você está navegando agora? Eu criei. O design, o código, a copy &mdash; tudo. É exatamente esse nível de qualidade que seu negócio vai receber.</p>
+    </div>
+    <div class="stats-row">
+      <div class="stat reveal reveal-delay-1">
+        <div class="stat-number">7 DIAS</div>
+        <div class="stat-label">prazo médio<br>de entrega</div>
+      </div>
+      <div class="stat reveal reveal-delay-2">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">responsivo<br>e otimizado</div>
+      </div>
+      <div class="stat reveal reveal-delay-3">
+        <div class="stat-number">0</div>
+        <div class="stat-label">templates prontos.<br>Tudo personalizado.</div>
+      </div>
+    </div>
+    <div class="proof-link reveal reveal-delay-4">
+      <a href="../index.html">&rarr; Ver portfólio completo</a>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     SECTION 5 — PROCESS
+     ===================================================== -->
+<section class="process" id="processo">
+  <div class="container">
+    <div class="process-header reveal">
+      <p class="section-label">Como funciona</p>
+      <h2 class="section-title-bebas">3 PASSOS. 7 DIAS. NO AR.</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-step reveal reveal-delay-1">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-number">01 &mdash; BRIEFING</div>
+        <h3 class="timeline-title">Conversa inicial</h3>
+        <p class="timeline-desc">Conversa de 30 min. Entendo seu negócio, seu público e seus objetivos. Você fala, eu escuto.</p>
+      </div>
+      <div class="timeline-step reveal reveal-delay-2">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-number">02 &mdash; CRIAÇÃO</div>
+        <h3 class="timeline-title">Design e textos</h3>
+        <p class="timeline-desc">Design e textos desenvolvidos do zero. Você recebe o preview para aprovar antes de qualquer publicação.</p>
+      </div>
+      <div class="timeline-step reveal reveal-delay-3">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-number">03 &mdash; ENTREGA</div>
+        <h3 class="timeline-title">No ar</h3>
+        <p class="timeline-desc">Ajustes finais, publicação e integração. Pronto para receber clientes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     SECTION 6 — PRICING
+     ===================================================== -->
+<section class="pricing" id="preco">
+  <div class="container">
+    <div class="pricing-header reveal">
+      <p class="section-label">Investimento</p>
+      <h2 class="section-title-bebas">INVESTIMENTO</h2>
+    </div>
+    <div class="pricing-card reveal">
+      <span class="pricing-card-badge">Edição Fundador</span>
+      <h3 class="pricing-card-title">Landing Page de Conversão</h3>
+      <p class="pricing-card-old">R$ 1.997</p>
+      <p class="pricing-card-price">R$ 997</p>
+      <p class="pricing-card-installment">ou 3x de R$ 332</p>
+      <ul class="pricing-features">
+        <li>Design personalizado e exclusivo</li>
+        <li>Copy persuasivo e otimizado</li>
+        <li>Integração WhatsApp / formulário</li>
+        <li>100% responsivo (mobile + desktop)</li>
+        <li>Otimizado para velocidade</li>
+        <li>Domínio e hospedagem orientados</li>
+        <li>30 dias de suporte pós-entrega</li>
+      </ul>
+      <div class="pricing-scarcity">
+        <p class="pricing-scarcity-title">Condição especial para os primeiros 5 clientes</p>
+        <p class="pricing-scarcity-text">Preço de lançamento. Após preencher as vagas, volta ao valor original.</p>
+        <div class="pricing-scarcity-counter" aria-label="3 de 5 vagas disponíveis">
+          <span class="dot filled" aria-hidden="true"></span>
+          <span class="dot filled" aria-hidden="true"></span>
+          <span class="dot empty" aria-hidden="true"></span>
+          <span class="dot empty" aria-hidden="true"></span>
+          <span class="dot empty" aria-hidden="true"></span>
+        </div>
+        <p class="pricing-scarcity-text" style="margin-top: 8px; font-weight: 500; color: var(--orange);">3 de 5 vagas disponíveis</p>
+      </div>
+      <a href="https://wa.me/351963901570?text=Oi%20JP!%20Vi%20seu%20site%20e%20quero%20saber%20mais%20sobre%20os%20servi%C3%A7os%20de%20presen%C3%A7a%20digital." class="btn-primary" style="width: 100%; justify-content: center;" target="_blank" rel="noopener">GARANTIR MINHA VAGA &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     SECTION 7 — FAQ
+     ===================================================== -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="faq-header reveal">
+      <p class="section-label">Perguntas frequentes</p>
+      <h2 class="section-title-syne">Dúvidas?</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span>E se eu não gostar do resultado?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">Você aprova o design antes da publicação. Se não estiver satisfeito após a revisão, devolvo 100%.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span>Por que esse preço é tão abaixo de agências?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">Estou construindo meu portfólio. Você recebe qualidade de agência por preço de lançamento. Condição por tempo limitado.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span>Preciso ter logo e identidade visual?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">Não. Trabalho com o que você tem. Se não tem nada, crio uma direção visual dentro do projeto.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span>Quanto tempo leva?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">7 dias úteis após o briefing para landing pages. 14 dias para presença digital completa.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span>Funciona para qualquer negócio?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">Funciona melhor para quem vende serviço: coaches, consultores, profissionais de saúde, advogados, personal trainers. Se seu negócio depende de atrair clientes, funciona.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span>E depois da entrega?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">30 dias de suporte incluído. Se precisar de gestão contínua, temos plano mensal.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     SECTION 8 — FINAL CTA
+     ===================================================== -->
+<section class="final-cta" id="contato">
+  <div class="final-cta-glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Próximo passo</p>
+      <h2 class="section-title-bebas">SEU PRÓXIMO CLIENTE ESTÁ A<br>UMA LANDING PAGE DE DISTÂNCIA.</h2>
+    </div>
+    <p class="section-sub reveal reveal-delay-1" style="margin: 0 auto 48px;">Pare de perder vendas com presença digital amadora.</p>
+    <div class="reveal reveal-delay-2">
+      <a href="https://wa.me/351963901570?text=Oi%20JP!%20Vi%20seu%20site%20e%20quero%20saber%20mais%20sobre%20os%20servi%C3%A7os%20de%20presen%C3%A7a%20digital." class="btn-primary" target="_blank" rel="noopener">FALAR COM JP NO WHATSAPP &rarr;</a>
+      <p class="final-cta-note">Respondo em menos de 2 horas. Sem compromisso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-links">
+      <a href="https://instagram.com/jpbertilhomkt" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://linkedin.com/in/jpbertilho" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://wa.me/351963901570" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 JP Bertilho | Marketing Digital</p>
+    <p class="footer-location">Portugal | Brasil</p>
+  </div>
+</footer>
+
+<!-- Bottom spacer for fixed mobile CTA -->
+<div class="bottom-spacer" aria-hidden="true"></div>
+
+<!-- =====================================================
+     JAVASCRIPT — Scroll reveals & FAQ accordion
+     ===================================================== -->
+<script>
+(function() {
+  'use strict';
+
+  // --- Scroll Reveal with IntersectionObserver ---
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    reveals.forEach(function(el) {
+      observer.observe(el);
+    });
+  } else {
+    // Fallback: show everything
+    reveals.forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
+
+  // --- FAQ Accordion ---
+  var faqButtons = document.querySelectorAll('.faq-question');
+  faqButtons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = this.closest('.faq-item');
+      var answer = item.querySelector('.faq-answer');
+      var isOpen = item.classList.contains('open');
+
+      // Close all other items
+      document.querySelectorAll('.faq-item.open').forEach(function(openItem) {
+        if (openItem !== item) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          openItem.querySelector('.faq-answer').style.maxHeight = '0';
+        }
+      });
+
+      // Toggle current
+      if (isOpen) {
+        item.classList.remove('open');
+        this.setAttribute('aria-expanded', 'false');
+        answer.style.maxHeight = '0';
+      } else {
+        item.classList.add('open');
+        this.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // --- Fixed Mobile CTA visibility ---
+  var fixedCta = document.getElementById('fixedCta');
+  var hero = document.getElementById('hero');
+
+  if (fixedCta && hero && 'IntersectionObserver' in window) {
+    var ctaObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          fixedCta.classList.remove('visible');
+        } else {
+          fixedCta.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    ctaObserver.observe(hero);
+  }
+
+  // --- Smooth scroll for anchor links ---
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
