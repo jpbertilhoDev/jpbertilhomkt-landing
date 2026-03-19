@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>JP Bertilho — Marketing Digital do Zero</title>
+<meta name="description" content="JP Bertilho — Marketing digital, sites, tráfego pago e posicionamento digital. Brasil e Europa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --orange: #E8632B;
+  --orange-dark: #B34415;
+  --orange-deep: #8C3310;
+  --bg: #0A0A0A;
+  --bg-light: #F5EDE4;
+  --white: #FFFAF6;
+  --dark: #2C1A0E;
+  --font-bebas: 'Bebas Neue', sans-serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-syne: 'Syne', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+}
+
+html {
+  scroll-behavior: auto;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-outfit);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CUSTOM CURSOR
+   ═══════════════════════════════════════════════════════ */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--orange);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              height 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.3s;
+}
+
+.cursor.hover {
+  width: 64px;
+  height: 64px;
+  border-color: var(--white);
+}
+
+/* ═══════════════════════════════════════════════════════
+   FILM GRAIN OVERLAY
+   ═══════════════════════════════════════════════════════ */
+.grain {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 99998;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: grainAnim 0.5s steps(1) infinite;
+}
+
+@keyframes grainAnim {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, -35%); }
+  90% { transform: translate(-10%, 10%); }
+  100% { transform: translate(5%, 0); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   LOADING SCREEN
+   ═══════════════════════════════════════════════════════ */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.loader-logo {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: 5rem;
+  color: var(--orange);
+  opacity: 0;
+}
+
+.loader-bar-wrap {
+  width: 200px;
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.loader-bar {
+  width: 0%;
+  height: 100%;
+  background: var(--orange);
+  border-radius: 3px;
+}
+
+.loader-percent {
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: 14px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 3px;
+  opacity: 0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BRAND MARK (FIXED)
+   ═══════════════════════════════════════════════════════ */
+.brand-mark {
+  position: fixed;
+  top: 28px;
+  left: 32px;
+  width: 44px;
+  height: 44px;
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  border-radius: 4px;
+}
+
+.brand-mark span {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--white);
+  letter-spacing: -0.5px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCENE 1 — HERO
+   ═══════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  background: url('img/hero-cover.png') center top / cover no-repeat;
+  will-change: transform;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(180deg,
+      transparent 0%,
+      transparent 30%,
+      rgba(10,10,10,0.3) 50%,
+      rgba(10,10,10,0.7) 70%,
+      #0A0A0A 100%
+    );
+  z-index: 2;
+}
+
+.hero-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(10,10,10,0.6) 100%);
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding-bottom: 100px;
+}
+
+.hero-subtitle {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 2.5rem;
+  color: var(--white);
+  opacity: 0.85;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.hero-subtitle .word {
+  display: inline-block;
+  clip-path: inset(100% 0 0 0);
+}
+
+.hero-title {
+  font-family: var(--font-bebas);
+  font-size: 12rem;
+  line-height: 0.9;
+  letter-spacing: 6px;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.hero-title .word {
+  display: inline-block;
+  clip-path: inset(100% 0 0 0);
+}
+
+.hero-title .accent {
+  color: var(--orange);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.4), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.3); }
+}
+
+.hero-scroll span {
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCENE 2 — MANIFESTO
+   ═══════════════════════════════════════════════════════ */
+.manifesto {
+  position: relative;
+  width: 100%;
+  height: 300vh;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.manifesto-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.manifesto-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(232,99,43,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.manifesto-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.manifesto-text {
+  max-width: 850px;
+  padding: 0 40px;
+  text-align: center;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 3.5rem;
+  line-height: 1.45;
+}
+
+.manifesto-text .m-word {
+  display: inline;
+  color: rgba(255,255,255,0.05);
+  transition: color 0.1s;
+}
+
+.manifesto-text .m-word.active {
+  color: var(--white);
+}
+
+.manifesto-text .m-word.highlight.active {
+  color: var(--orange);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCENE 3 — SERVICES (horizontal scroll)
+   ═══════════════════════════════════════════════════════ */
+.services {
+  position: relative;
+  overflow: hidden;
+}
+
+.services-track {
+  display: flex;
+  width: 400vw;
+  will-change: transform;
+}
+
+.service-panel {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 10vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-panel:nth-child(1) { background: #0A0A0A; }
+.service-panel:nth-child(2) { background: #090909; }
+.service-panel:nth-child(3) { background: #080808; }
+.service-panel:nth-child(4) { background: #070707; }
+
+.service-watermark {
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  font-family: var(--font-bebas);
+  font-size: 15rem;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.service-label {
+  font-family: var(--font-syne);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  color: var(--orange);
+  margin-bottom: 20px;
+}
+
+.service-title {
+  font-family: var(--font-bebas);
+  font-size: 6rem;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 24px;
+  letter-spacing: 3px;
+}
+
+.service-desc {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.4rem;
+  color: rgba(255,255,255,0.45);
+  max-width: 480px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.service-tag {
+  font-family: var(--font-outfit);
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  padding: 8px 20px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCENE 4 — NUMBERS
+   ═══════════════════════════════════════════════════════ */
+.numbers {
+  background: var(--bg-light);
+  padding: 140px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 60px;
+  text-align: center;
+}
+
+.number-item {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.number-value {
+  font-family: var(--font-bebas);
+  font-size: 9rem;
+  line-height: 1;
+  color: var(--dark);
+}
+
+.number-value .accent {
+  color: var(--orange);
+}
+
+.number-label {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.4rem;
+  color: #6B5546;
+  margin-top: 8px;
+}
+
+.number-sublabel {
+  font-family: var(--font-outfit);
+  font-weight: 300;
+  font-size: 13px;
+  color: #9B8A7A;
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+.numbers-divider {
+  width: 80px;
+  height: 4px;
+  background: var(--orange);
+  margin: 80px auto 48px;
+  border-radius: 4px;
+  opacity: 0;
+}
+
+.numbers-quote {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 2rem;
+  color: var(--dark);
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCENE 5 — PROCESS
+   ═══════════════════════════════════════════════════════ */
+.process {
+  background: var(--bg);
+  padding: 160px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.process-header {
+  text-align: center;
+  margin-bottom: 120px;
+}
+
+.process-header-sub {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.6rem;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+}
+
+.process-header-title {
+  font-family: var(--font-bebas);
+  font-size: 6rem;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  line-height: 1;
+}
+
+.process-header-title .accent {
+  color: var(--orange);
+}
+
+.process-steps {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.process-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    var(--orange) 10%,
+    var(--orange) 90%,
+    transparent 100%
+  );
+  opacity: 0.25;
+}
+
+.process-step {
+  display: flex;
+  align-items: flex-start;
+  padding: 60px 0;
+  position: relative;
+  opacity: 0;
+  transform: translateY(60px);
+}
+
+.process-step:nth-child(odd) {
+  flex-direction: row;
+  text-align: right;
+  padding-right: calc(50% + 50px);
+}
+
+.process-step:nth-child(even) {
+  flex-direction: row-reverse;
+  text-align: left;
+  padding-left: calc(50% + 50px);
+}
+
+.process-step-dot {
+  position: absolute;
+  left: 50%;
+  top: 80px;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: var(--orange);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(232,99,43,0.4);
+}
+
+.process-step-number {
+  font-family: var(--font-bebas);
+  font-size: 8rem;
+  color: rgba(232,99,43,0.1);
+  line-height: 1;
+  position: absolute;
+}
+
+.process-step:nth-child(odd) .process-step-number {
+  right: calc(50% + 60px);
+  top: 20px;
+}
+
+.process-step:nth-child(even) .process-step-number {
+  left: calc(50% + 60px);
+  top: 20px;
+}
+
+.process-step-content {
+  position: relative;
+}
+
+.process-step-title {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: 2.5rem;
+  color: var(--white);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.process-step-desc {
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.6;
+  max-width: 380px;
+}
+
+.process-step:nth-child(odd) .process-step-desc {
+  margin-left: auto;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCENE 6 — MARQUEE
+   ═══════════════════════════════════════════════════════ */
+.marquee-section {
+  position: relative;
+  background: var(--orange);
+  overflow: hidden;
+  padding: 60px 0;
+}
+
+.marquee-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('img/workspace.jpg') center / cover no-repeat;
+  opacity: 0.05;
+}
+
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.marquee-item {
+  font-family: var(--font-bebas);
+  font-size: 5rem;
+  color: var(--white);
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding-right: 32px;
+  flex-shrink: 0;
+}
+
+.marquee-dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCENE 7 — CTA
+   ═══════════════════════════════════════════════════════ */
+.cta {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.cta-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: url('img/jp-portrait.png') center top / cover no-repeat;
+  filter: saturate(0.6) brightness(0.75);
+  will-change: transform;
+}
+
+.cta-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    transparent 25%,
+    rgba(10,10,10,0.5) 40%,
+    #0A0A0A 60%
+  );
+  z-index: 2;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 0 40px 100px;
+}
+
+.cta-sub {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 2.2rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 12px;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.cta-title {
+  font-family: var(--font-bebas);
+  font-size: 9rem;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: 4px;
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.cta-title .accent {
+  color: var(--orange);
+}
+
+.cta-button {
+  display: inline-block;
+  font-family: var(--font-syne);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--white);
+  background: var(--orange);
+  padding: 20px 52px;
+  border-radius: 60px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  box-shadow: 0 0 40px rgba(232,99,43,0.3), 0 0 80px rgba(232,99,43,0.15);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 60px rgba(232,99,43,0.5), 0 0 120px rgba(232,99,43,0.2);
+}
+
+.cta-note {
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 15px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 24px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════ */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 40px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  background: var(--bg);
+}
+
+.footer-left {
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 13px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-family: var(--font-outfit);
+  font-weight: 400;
+  font-size: 13px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1px;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: var(--orange);
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE
+   ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   TOUCH DEVICES — disable heavy effects
+   ═══════════════════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  .grain { animation: none !important; opacity: 0.02; }
+  .cursor { display: none !important; }
+  body { cursor: auto; }
+  a, button { cursor: pointer; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (max 768px)
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .cursor { display: none !important; }
+  body { cursor: auto; }
+  a { cursor: pointer; }
+
+  .brand-mark {
+    top: 16px;
+    left: 16px;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+  .brand-mark span { font-size: 14px; }
+
+  /* HERO — mobile optimized */
+  .hero { align-items: center; }
+  .hero-subtitle { font-size: 1.6rem; }
+  .hero-title { font-size: 5.5rem; letter-spacing: 2px; }
+  .hero-content {
+    padding: 0 24px 90px;
+    width: 100%;
+  }
+  .hero-bg {
+    background-position: center 20%;
+  }
+
+  /* MANIFESTO — better mobile font */
+  .manifesto { min-height: 250vh; }
+  .manifesto-text {
+    font-size: 2rem;
+    padding: 0 28px;
+    line-height: 1.6;
+  }
+  .manifesto-glow {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* SERVICES — vertical stack with cards */
+  .services-track {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+  .service-panel {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    padding: 60px 28px;
+  }
+  .service-watermark {
+    font-size: 6rem;
+    top: 20px;
+    left: 28px;
+    opacity: 0.04;
+  }
+  .service-content {
+    max-width: 100%;
+    padding: 0;
+  }
+  .service-title {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+  }
+  .service-desc {
+    font-size: 1.15rem;
+    margin-bottom: 20px;
+  }
+  .service-label {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  .service-tags { gap: 8px; }
+  .service-tag {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  /* NUMBERS — single column */
+  .numbers { padding: 60px 28px; }
+  .numbers-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .number-value { font-size: 7rem; }
+  .number-label { font-size: 1.3rem; }
+  .numbers-quote { font-size: 1.4rem; padding: 0 12px; }
+
+  /* PROCESS — vertical simple */
+  .process { padding: 60px 28px; }
+  .process-header-title { font-size: 4rem; }
+  .process-header-sub { font-size: 1.3rem; }
+  .process-line { display: none; }
+  .process-step-dot { display: none; }
+  .process-steps { padding: 0; }
+  .process-step,
+  .process-step:nth-child(odd),
+  .process-step:nth-child(even) {
+    flex-direction: column;
+    text-align: left;
+    padding: 24px 0;
+    padding-left: 0;
+    padding-right: 0;
+    border-bottom: 1px solid rgba(255,250,246,0.06);
+  }
+  .process-step:last-child { border-bottom: none; }
+  .process-step-number,
+  .process-step:nth-child(odd) .process-step-number,
+  .process-step:nth-child(even) .process-step-number {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    font-size: 4rem;
+    margin-bottom: 8px;
+  }
+  .process-step-title { font-size: 1.8rem; margin-bottom: 8px; }
+  .process-step-desc { max-width: 100%; font-size: 1rem; }
+  .process-step:nth-child(odd) .process-step-desc { margin-left: 0; }
+
+  /* MARQUEE */
+  .marquee-section { padding: 5vh 0; }
+  .marquee-item {
+    font-size: 2.5rem;
+    letter-spacing: 3px;
+    gap: 16px;
+    padding-right: 16px;
+  }
+
+  /* CTA — mobile centered */
+  .cta-title { font-size: 4.5rem; letter-spacing: 2px; }
+  .cta-sub { font-size: 1.5rem; }
+  .cta-content {
+    padding: 0 24px 50px;
+    margin-top: 25vh;
+  }
+  .cta-button {
+    padding: 18px 40px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    width: 100%;
+    justify-content: center;
+  }
+  .cta-after { font-size: 13px; }
+
+  /* CTA photo — better positioning mobile */
+  .cta-photo {
+    height: 55%;
+    background-position: center 15%;
+  }
+
+  /* FOOTER */
+  .footer {
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — SMALL PHONE (max 480px)
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 4.2rem;
+    letter-spacing: 1px;
+  }
+  .hero-subtitle { font-size: 1.2rem; }
+  .hero-content { padding-bottom: 70px; }
+  .hero-bg { background-position: center 25%; }
+
+  .manifesto { min-height: 200vh; }
+  .manifesto-text {
+    font-size: 1.6rem;
+    padding: 0 20px;
+    line-height: 1.7;
+  }
+
+  .service-title { font-size: 2.8rem; }
+  .service-watermark { font-size: 5rem; }
+
+  .process-header-title { font-size: 3rem; }
+  .process-step-number,
+  .process-step:nth-child(odd) .process-step-number,
+  .process-step:nth-child(even) .process-step-number {
+    font-size: 3.5rem;
+  }
+  .process-step-title { font-size: 1.5rem; }
+
+  .number-value { font-size: 5.5rem; }
+  .number-label { font-size: 1.1rem; }
+
+  .marquee-item { font-size: 2rem; }
+
+  .cta-title { font-size: 3.5rem; }
+  .cta-sub { font-size: 1.2rem; }
+  .cta-content { margin-top: 20vh; }
+  .cta-button { padding: 16px 32px; font-size: 13px; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — VERY SMALL (max 360px)
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 360px) {
+  .hero-title { font-size: 3.5rem; }
+  .hero-subtitle { font-size: 1.1rem; }
+  .manifesto-text { font-size: 1.4rem; padding: 0 16px; }
+  .service-title { font-size: 2.4rem; }
+  .number-value { font-size: 4.5rem; }
+  .cta-title { font-size: 3rem; }
+  .process-header-title { font-size: 2.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+
+<!-- FILM GRAIN OVERLAY -->
+<div class="grain"></div>
+
+<!-- LOADING SCREEN -->
+<div class="loader" id="loader">
+  <div class="loader-logo" id="loaderLogo">JP</div>
+  <div class="loader-bar-wrap" id="loaderBarWrap">
+    <div class="loader-bar" id="loaderBar"></div>
+  </div>
+  <div class="loader-percent" id="loaderPercent">0%</div>
+</div>
+
+<!-- BRAND MARK -->
+<div class="brand-mark" id="brandMark">
+  <span>JP</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCENE 1 — HERO
+     ═══════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="hero-subtitle">
+      <span class="word">e</span>
+      <span class="word"> se</span>
+      <span class="word"> eu</span>
+      <span class="word"> começasse</span>
+    </p>
+    <h1 class="hero-title">
+      <span class="word">DO </span><span class="word accent">ZERO?</span>
+    </h1>
+  </div>
+
+  <div class="hero-scroll" id="heroScroll">
+    <div class="hero-scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCENE 2 — MANIFESTO
+     ═══════════════════════════════════════════════════════ -->
+<section class="manifesto" id="manifesto">
+  <div class="manifesto-grid"></div>
+  <div class="manifesto-glow"></div>
+  <div class="manifesto-pin">
+    <div class="manifesto-text" id="manifestoText">
+      <!-- Words injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCENE 3 — SERVICES
+     ═══════════════════════════════════════════════════════ -->
+<section class="services" id="services">
+  <div class="services-track" id="servicesTrack">
+    <!-- Panel 1 -->
+    <div class="service-panel">
+      <div class="service-watermark">01</div>
+      <div class="service-label">Desenvolvimento</div>
+      <h2 class="service-title">Sites &<br>Sistemas</h2>
+      <p class="service-desc">Landing pages que convertem, sites WordPress otimizados e sistemas web sob medida para o seu negócio crescer online.</p>
+      <div class="service-tags">
+        <span class="service-tag">Landing Pages</span>
+        <span class="service-tag">WordPress</span>
+        <span class="service-tag">Sistemas Web</span>
+        <span class="service-tag">E-commerce</span>
+      </div>
+    </div>
+    <!-- Panel 2 -->
+    <div class="service-panel">
+      <div class="service-watermark">02</div>
+      <div class="service-label">Performance</div>
+      <h2 class="service-title">Tráfego<br>Pago</h2>
+      <p class="service-desc">Campanhas estratégicas no Meta Ads e Google Ads. Retargeting inteligente. Cada real investido com retorno mensurável.</p>
+      <div class="service-tags">
+        <span class="service-tag">Meta Ads</span>
+        <span class="service-tag">Google Ads</span>
+        <span class="service-tag">Retargeting</span>
+        <span class="service-tag">Analytics</span>
+      </div>
+    </div>
+    <!-- Panel 3 -->
+    <div class="service-panel">
+      <div class="service-watermark">03</div>
+      <div class="service-label">Marca</div>
+      <h2 class="service-title">Posicionamento<br>Digital</h2>
+      <p class="service-desc">Branding consistente, identidade visual forte e estratégia de conteúdo que posiciona você como autoridade no seu mercado.</p>
+      <div class="service-tags">
+        <span class="service-tag">Branding</span>
+        <span class="service-tag">Identidade Visual</span>
+        <span class="service-tag">Estratégia</span>
+        <span class="service-tag">Conteúdo</span>
+      </div>
+    </div>
+    <!-- Panel 4 -->
+    <div class="service-panel">
+      <div class="service-watermark">04</div>
+      <div class="service-label">Global</div>
+      <h2 class="service-title">Brasil &<br>Europa</h2>
+      <p class="service-desc">Dois continentes, sem fronteiras. Atendo clientes no Brasil e na Europa com a mesma qualidade e proximidade.</p>
+      <div class="service-tags">
+        <span class="service-tag">Brasil</span>
+        <span class="service-tag">Portugal</span>
+        <span class="service-tag">Europa</span>
+        <span class="service-tag">Remoto</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCENE 4 — NUMBERS
+     ═══════════════════════════════════════════════════════ -->
+<section class="numbers" id="numbers">
+  <div class="numbers-grid">
+    <div class="number-item">
+      <div class="number-value"><span class="accent">0</span></div>
+      <div class="number-label">seguidores</div>
+      <div class="number-sublabel">dia 1</div>
+    </div>
+    <div class="number-item">
+      <div class="number-value">9<span class="accent">0</span></div>
+      <div class="number-label">dias de desafio</div>
+      <div class="number-sublabel">documentando tudo</div>
+    </div>
+    <div class="number-item">
+      <div class="number-value">10<span class="accent">0</span>%</div>
+      <div class="number-label">transparente</div>
+      <div class="number-sublabel">sem filtro</div>
+    </div>
+  </div>
+  <div class="numbers-divider" id="numbersDivider"></div>
+  <p class="numbers-quote" id="numbersQuote">
+    "Cada número vai ser público. Cada erro, documentado. Sem edição. Sem filtro."
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCENE 5 — PROCESS
+     ═══════════════════════════════════════════════════════ -->
+<section class="process" id="process">
+  <div class="process-header">
+    <p class="process-header-sub">como funciona</p>
+    <h2 class="process-header-title">O <span class="accent">PROCESSO</span></h2>
+  </div>
+
+  <div class="process-steps">
+    <div class="process-line"></div>
+
+    <div class="process-step">
+      <div class="process-step-dot"></div>
+      <div class="process-step-number">01</div>
+      <div class="process-step-content">
+        <h3 class="process-step-title">Diagnóstico</h3>
+        <p class="process-step-desc">Analiso seu negócio, público e presença digital. Com dados, não achismo.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-step-dot"></div>
+      <div class="process-step-number">02</div>
+      <div class="process-step-content">
+        <h3 class="process-step-title">Estratégia</h3>
+        <p class="process-step-desc">Plano completo: identidade, conteúdo, canais, tráfego. Tudo integrado.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-step-dot"></div>
+      <div class="process-step-number">03</div>
+      <div class="process-step-content">
+        <h3 class="process-step-title">Execução</h3>
+        <p class="process-step-desc">Crio o site, configuro campanhas, produzo conteúdo. Eu faço, não delego.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-step-dot"></div>
+      <div class="process-step-number">04</div>
+      <div class="process-step-content">
+        <h3 class="process-step-title">Resultado</h3>
+        <p class="process-step-desc">Métricas reais, otimização semanal, relatórios transparentes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCENE 6 — MARQUEE
+     ═══════════════════════════════════════════════════════ -->
+<section class="marquee-section" id="marquee">
+  <div class="marquee-bg"></div>
+  <div class="marquee-track" id="marqueeTrack">
+    <!-- Items duplicated for seamless loop -->
+    <div class="marquee-item">SITES <span class="marquee-dot"></span></div>
+    <div class="marquee-item">TRÁFEGO PAGO <span class="marquee-dot"></span></div>
+    <div class="marquee-item">POSICIONAMENTO <span class="marquee-dot"></span></div>
+    <div class="marquee-item">BRANDING <span class="marquee-dot"></span></div>
+    <div class="marquee-item">ESTRATÉGIA <span class="marquee-dot"></span></div>
+    <div class="marquee-item">BRASIL & EUROPA <span class="marquee-dot"></span></div>
+    <div class="marquee-item">SITES <span class="marquee-dot"></span></div>
+    <div class="marquee-item">TRÁFEGO PAGO <span class="marquee-dot"></span></div>
+    <div class="marquee-item">POSICIONAMENTO <span class="marquee-dot"></span></div>
+    <div class="marquee-item">BRANDING <span class="marquee-dot"></span></div>
+    <div class="marquee-item">ESTRATÉGIA <span class="marquee-dot"></span></div>
+    <div class="marquee-item">BRASIL & EUROPA <span class="marquee-dot"></span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCENE 7 — CTA
+     ═══════════════════════════════════════════════════════ -->
+<section class="cta" id="cta">
+  <div class="cta-bg" id="ctaBg"></div>
+  <div class="cta-overlay"></div>
+  <div class="cta-content">
+    <p class="cta-sub">pronto pra começar?</p>
+    <h2 class="cta-title">
+      VAMOS CONSTRUIR<br><span class="accent">JUNTOS.</span>
+    </h2>
+    <a href="https://instagram.com/jpbertilhomkt" target="_blank" rel="noopener" class="cta-button">
+      SEGUIR @JPBERTILHOMKT &rarr;
+    </a>
+    <p class="cta-note">DM aberta. Respondo em 24h.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-left">&copy; 2026 JP BERTILHO</div>
+  <div class="footer-links">
+    <a href="https://instagram.com/jpbertilhomkt" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://linkedin.com/in/jpbertilho" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<script>
+(function() {
+  "use strict";
+
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+  // Mobile detection
+  var isMobile = window.innerWidth <= 768;
+  var isTouch = 'ontouchstart' in window;
+
+  // Ensure ScrollTrigger works well on mobile
+  ScrollTrigger.config({
+    ignoreMobileResize: true
+  });
+
+  /* ═══════════════════════════════════════════════════════
+     CUSTOM CURSOR
+     ═══════════════════════════════════════════════════════ */
+  const cursorEl = document.getElementById("cursor");
+  let mouseX = -100, mouseY = -100;
+  let cursorX = -100, cursorY = -100;
+
+  document.addEventListener("mousemove", function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function updateCursor() {
+    cursorX += (mouseX - cursorX) * 0.15;
+    cursorY += (mouseY - cursorY) * 0.15;
+    cursorEl.style.left = cursorX + "px";
+    cursorEl.style.top = cursorY + "px";
+    requestAnimationFrame(updateCursor);
+  }
+  updateCursor();
+
+  // Hover state for interactive elements
+  document.querySelectorAll("a, button, .cta-button, .service-tag").forEach(function(el) {
+    el.addEventListener("mouseenter", function() { cursorEl.classList.add("hover"); });
+    el.addEventListener("mouseleave", function() { cursorEl.classList.remove("hover"); });
+  });
+
+  /* ═══════════════════════════════════════════════════════
+     LOADING SCREEN
+     ═══════════════════════════════════════════════════════ */
+  const loader = document.getElementById("loader");
+  const loaderLogo = document.getElementById("loaderLogo");
+  const loaderBarWrap = document.getElementById("loaderBarWrap");
+  const loaderBar = document.getElementById("loaderBar");
+  const loaderPercent = document.getElementById("loaderPercent");
+  const brandMark = document.getElementById("brandMark");
+
+  // Loading timeline
+  const loadTL = gsap.timeline({
+    onComplete: function() {
+      initPage();
+    }
+  });
+
+  loadTL
+    .to(loaderLogo, { opacity: 1, duration: 0.6, ease: "power3.out" })
+    .to(loaderBarWrap, { opacity: 1, duration: 0.3, ease: "power3.out" }, "-=0.2")
+    .to(loaderPercent, { opacity: 1, duration: 0.3, ease: "power3.out" }, "-=0.1")
+    .to(loaderBar, {
+      width: "100%",
+      duration: 1.8,
+      ease: "power4.inOut",
+      onUpdate: function() {
+        var pct = Math.round(this.progress() * 100);
+        loaderPercent.textContent = pct + "%";
+      }
+    })
+    .to(loaderLogo, { opacity: 0, duration: 0.3, ease: "power3.in" }, "+=0.3")
+    .to([loaderBarWrap, loaderPercent], { opacity: 0, duration: 0.3, ease: "power3.in" }, "-=0.2")
+    .to(loader, {
+      yPercent: -100,
+      duration: 1,
+      ease: "power3.inOut"
+    }, "+=0.1");
+
+  /* ═══════════════════════════════════════════════════════
+     INIT PAGE — after loading
+     ═══════════════════════════════════════════════════════ */
+  function initPage() {
+    loader.style.display = "none";
+
+    // Brand mark
+    gsap.to(brandMark, { opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.2 });
+
+    initHero();
+    initManifesto();
+    initServices();
+    initNumbers();
+    initProcess();
+    initMarquee();
+    initCTA();
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     SCENE 1 — HERO ANIMATIONS
+     ═══════════════════════════════════════════════════════ */
+  function initHero() {
+    var heroWords = document.querySelectorAll(".hero-subtitle .word, .hero-title .word");
+    var heroScroll = document.getElementById("heroScroll");
+    var heroBg = document.getElementById("heroBg");
+
+    // Words clip-path reveal
+    gsap.to(heroWords, {
+      clipPath: "inset(0% 0 0 0)",
+      duration: 1,
+      ease: "power4.inOut",
+      stagger: 0.12,
+      delay: 0.2
+    });
+
+    // Scroll indicator fade in
+    gsap.to(heroScroll, { opacity: 1, duration: 1, delay: 1.6, ease: "power3.out" });
+
+    // Hero parallax on scroll — reduced on mobile for performance
+    gsap.to(heroBg, {
+      yPercent: isMobile ? 10 : 20,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: isMobile ? 0.5 : 1.5
+      }
+    });
+
+    // Fade scroll indicator on scroll
+    gsap.to(heroScroll, {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: "#hero",
+        start: "10% top",
+        end: "25% top",
+        scrub: true
+      }
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     SCENE 2 — MANIFESTO (pinned word reveal)
+     ═══════════════════════════════════════════════════════ */
+  function initManifesto() {
+    var isMobile = window.innerWidth <= 768;
+    var text = "Eu tenho 22 anos. Crio sites, configuro tráfego e posiciono negócios no digital. No Brasil e na Europa. E decidi documentar tudo. Cada passo. Cada número. Cada resultado. Sem filtro.";
+    var highlights = ["22 anos", "sites", "tráfego", "Brasil", "Europa", "documentar", "Sem filtro"];
+    var container = document.getElementById("manifestoText");
+
+    // Build word spans
+    var words = text.split(/(\s+)/);
+    var html = "";
+    var runningText = "";
+
+    // We need a smarter approach: mark highlight phrases
+    // First, build the full text with spans per word (non-whitespace token)
+    var tokens = text.split(" ");
+    html = "";
+    for (var i = 0; i < tokens.length; i++) {
+      var isHighlight = false;
+      var matchLen = 0;
+
+      // Check for multi-word highlights
+      for (var h = 0; h < highlights.length; h++) {
+        var hWords = highlights[h].split(" ");
+        var match = true;
+        for (var k = 0; k < hWords.length; k++) {
+          if (i + k >= tokens.length) { match = false; break; }
+          // Strip punctuation for comparison
+          var cleanToken = tokens[i + k].replace(/[.,!?;:]/g, "");
+          var cleanH = hWords[k].replace(/[.,!?;:]/g, "");
+          if (cleanToken.toLowerCase() !== cleanH.toLowerCase()) { match = false; break; }
+        }
+        if (match && hWords.length > matchLen) {
+          isHighlight = true;
+          matchLen = hWords.length;
+        }
+      }
+
+      if (isHighlight && matchLen > 1) {
+        for (var j = 0; j < matchLen; j++) {
+          html += '<span class="m-word highlight">' + tokens[i + j] + '</span> ';
+        }
+        i += matchLen - 1;
+      } else if (isHighlight) {
+        html += '<span class="m-word highlight">' + tokens[i] + '</span> ';
+      } else {
+        html += '<span class="m-word">' + tokens[i] + '</span> ';
+      }
+    }
+
+    container.innerHTML = html;
+
+    var mWords = container.querySelectorAll(".m-word");
+    var totalWords = mWords.length;
+
+    // Pin the manifesto section and reveal words on scroll
+    ScrollTrigger.create({
+      trigger: "#manifesto",
+      start: "top top",
+      end: "bottom bottom",
+      pin: ".manifesto-pin",
+      pinSpacing: false,
+      onUpdate: function(self) {
+        var progress = self.progress;
+        var activeIndex = Math.floor(progress * (totalWords + 4));
+        mWords.forEach(function(w, idx) {
+          if (idx <= activeIndex) {
+            w.classList.add("active");
+          } else {
+            w.classList.remove("active");
+          }
+        });
+      }
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     SCENE 3 — SERVICES (horizontal scroll)
+     ═══════════════════════════════════════════════════════ */
+  function initServices() {
+    var isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      // Mobile: vertical stack with staggered fade-in per panel
+      document.querySelectorAll(".service-panel").forEach(function(panel, idx) {
+        var els = panel.querySelectorAll(".service-label, .service-title, .service-desc, .service-tags");
+
+        // Stagger each panel with parallax feel
+        gsap.from(panel, {
+          opacity: 0,
+          y: 60,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: panel,
+            start: "top 85%",
+            toggleActions: "play none none none"
+          }
+        });
+
+        gsap.from(els, {
+          y: 30,
+          opacity: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          stagger: 0.08,
+          scrollTrigger: {
+            trigger: panel,
+            start: "top 75%",
+            toggleActions: "play none none none"
+          }
+        });
+      });
+      return;
+    }
+
+    // Desktop: horizontal scroll
+    var track = document.getElementById("servicesTrack");
+    var panels = track.querySelectorAll(".service-panel");
+    var totalWidth = panels.length * window.innerWidth;
+
+    var hScroll = gsap.to(track, {
+      x: function() { return -(totalWidth - window.innerWidth); },
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#services",
+        start: "top top",
+        end: function() { return "+=" + (totalWidth - window.innerWidth); },
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      }
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     SCENE 4 — NUMBERS
+     ═══════════════════════════════════════════════════════ */
+  function initNumbers() {
+    var items = document.querySelectorAll(".number-item");
+    var divider = document.getElementById("numbersDivider");
+    var quote = document.getElementById("numbersQuote");
+
+    gsap.to(items, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: "power3.out",
+      stagger: 0.15,
+      scrollTrigger: {
+        trigger: "#numbers",
+        start: "top 70%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    gsap.to(divider, {
+      opacity: 1,
+      duration: 0.6,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: divider,
+        start: "top 85%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    gsap.to(quote, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: quote,
+        start: "top 85%",
+        toggleActions: "play none none none"
+      }
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     SCENE 5 — PROCESS
+     ═══════════════════════════════════════════════════════ */
+  function initProcess() {
+    var header = document.querySelector(".process-header");
+    gsap.from(header.children, {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: header,
+        start: "top 80%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    var steps = document.querySelectorAll(".process-step");
+    steps.forEach(function(step) {
+      gsap.to(step, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: step,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     SCENE 6 — MARQUEE
+     ═══════════════════════════════════════════════════════ */
+  function initMarquee() {
+    var track = document.getElementById("marqueeTrack");
+    var items = track.querySelectorAll(".marquee-item");
+
+    // Measure half the track width (first 6 items)
+    var halfWidth = 0;
+    for (var i = 0; i < 6; i++) {
+      halfWidth += items[i].offsetWidth;
+    }
+
+    gsap.to(track, {
+      x: -halfWidth,
+      duration: 20,
+      ease: "none",
+      repeat: -1,
+      modifiers: {
+        x: function(x) {
+          return (parseFloat(x) % halfWidth) + "px";
+        }
+      }
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     SCENE 7 — CTA
+     ═══════════════════════════════════════════════════════ */
+  function initCTA() {
+    var ctaBg = document.getElementById("ctaBg");
+    var sub = document.querySelector(".cta-sub");
+    var title = document.querySelector(".cta-title");
+    var button = document.querySelector(".cta-button");
+    var note = document.querySelector(".cta-note");
+
+    // Photo parallax — reduced on mobile
+    gsap.to(ctaBg, {
+      yPercent: isMobile ? 8 : 15,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#cta",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: isMobile ? 0.5 : 1.5
+      }
+    });
+
+    // Staggered content reveal
+    var ctaTL = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#cta",
+        start: "top 60%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    ctaTL
+      .to(sub, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" })
+      .to(title, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }, "-=0.5")
+      .to(button, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.5")
+      .to(note, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.4");
+  }
+
+})();
+</script>
+</body>
+</html>
